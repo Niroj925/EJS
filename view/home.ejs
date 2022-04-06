@@ -1,0 +1,18 @@
+<div class="body">
+<%- include('header'); -%>
+<div class="content">
+<h1 name="home"> <%= title %> </h1>
+<p name="home"><%= content %></p>
+
+  <% posts .forEach(function(post){ %>
+        <h1 name="home"> <%= post.title %> </h1>
+        <p name="home"><%= post.content %></p>
+    <%   })%>
+
+</div>
+<form id="nc" about='/home' method="post">
+    <button id="bt" class="btn btn-primary" name="new" type="submit" value="press">New Compose</button>
+</form>
+<%- include('footer'); -%>
+
+</div>

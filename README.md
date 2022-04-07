@@ -1,2 +1,2 @@
 # EJS
-EJS project for post blog 
+EJS project to post blog in homepage

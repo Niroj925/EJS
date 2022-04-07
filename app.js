@@ -37,6 +37,7 @@ const viewpath=path.join(__dirname,"./view");
          console.log(posts[i]);
      }
         */
+       /*
        //this efficient way to solve
        posts.forEach(function(post){
            console.log(post);
@@ -45,9 +46,10 @@ const viewpath=path.join(__dirname,"./view");
                title:posts.title,
                content:posts.content  
             });
-            */
+            
        })
-    });
+       */
+  });
 
  app.get('/about',function(req,res){
     res.render('home',{
@@ -81,14 +83,24 @@ app.get('/contact',function(req,res){
     posts.push(post);
     res.redirect('/');
    });
+   //for new  compose
    app.post('/',function(req, res){
-      // console.log(req.body.new);
+       console.log(req.body.new);
+       console.log(req.body.del);
       const bv=req.body.new;
+      const dv=req.body.del;
        if(bv==='press')
        { 
            res.redirect('/compose');
        }
+       //this is for pop the posts 
+       else if(dv==='delreq')
+       {
+           posts.pop();
+           res.redirect('/');
+       }
    })
+ 
 
 app.listen(port, function(){
     console.log('server running on port 3000');

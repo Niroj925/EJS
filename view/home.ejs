@@ -5,8 +5,10 @@
 <p name="home"><%= content %></p>
 
   <% posts .forEach(function(post){ %>
-        <h1 name="home"> <%= post.title %> </h1>
-        <p name="home"><%= post.content %></p>
+        <h1 name="home"> <%= post.title %></h1> </h1>
+        <p name="home"><%= post.content.toString(0,60)+"..."%>
+            <a href="/posts/+<%= post.title %>">read more</a>
+        </p>
     <%   })%>
 
 </div>

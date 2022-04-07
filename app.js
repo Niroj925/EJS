@@ -132,7 +132,6 @@ if(tt>0)
    })
     res.redirect('/post');
 }
-
 // console.log(req.params.postContent);
 })
 //lodash example 

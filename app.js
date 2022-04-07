@@ -3,6 +3,8 @@ const bodyParser=require('body-parser');
 const ejs=require('ejs');
 const path=require('path');//for path
 const { send } = require('process');
+//for lower cases it turns any string into lower case in alphabet only
+const _ = require('lodash');
 const port=process.env.PORT ||3000;
 
 const home="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
@@ -84,9 +86,10 @@ app.get('/contact',function(req,res){
     res.redirect('/');
    });
    //for new  compose
-   app.post('/',function(req, res){
-       console.log(req.body.new);
-       console.log(req.body.del);
+   const action='/';
+   app.post(action,function(req, res){
+       //console.log(req.body.new);
+       //console.log(req.body.del);
       const bv=req.body.new;
       const dv=req.body.del;
        if(bv==='press')
@@ -100,7 +103,41 @@ app.get('/contact',function(req,res){
            res.redirect('/');
        }
    })
- 
+//route parameter for route below link we 
+//can get the result after content
+app.get('/posts/:posttitle',function(req, res){
+    //to test the title exist or not
+    //low dash is use for absolute alpha only lower case remove all
+    const postTitle=_.lowerCase(req.params.posttitle);
+    console.log(postTitle);
+    let tt=0;
+    let i;//this is for finding index
+    for(i=0; i<posts.length; i++){
+        let currentTitle=_.lowerCase(posts[i].title);
+       // console.log(currentTitle);
+      if(currentTitle==postTitle)
+      { 
+          tt+=1;
+         // console.log('title found');
+          break; 
+      }
+    }
+(tt>0)?console.log('title found'):console.log('title not found');
+//route for seperate page od entered title
+if(tt>0)
+{ 
+   res.render('post',{
+       ptitle:posts[i].title,
+       pcontent:posts[i].content
+   })
+    res.redirect('/post');
+}
+
+// console.log(req.params.postContent);
+})
+//lodash example 
+//console.log(_.lowerCase('- mero @ nam --'));//result is mero nam
+
 
 app.listen(port, function(){
     console.log('server running on port 3000');

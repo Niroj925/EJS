@@ -9,7 +9,17 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "node": "^17.7.2"
   },
-  "description": ""
+  "description": "EJS project for post blog",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niroj925/EJS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Niroj925/EJS/issues"
+  },
+  "homepage": "https://github.com/Niroj925/EJS#readme",
+  "devDependencies": {}
 }

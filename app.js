@@ -3,6 +3,7 @@ const bodyParser=require('body-parser');
 const ejs=require('ejs');
 const path=require('path');//for path
 const { send } = require('process');
+const port=process.env.PORT ||3000;
 
 const home="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum";
 const about="The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.";
@@ -89,6 +90,6 @@ app.get('/contact',function(req,res){
        }
    })
 
-app.listen(3000, function(){
+app.listen(port, function(){
     console.log('server running on port 3000');
 })

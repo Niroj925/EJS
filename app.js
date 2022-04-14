@@ -2,6 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 const ejs=require('ejs');
 const path=require('path');//for path
+const mongoose=require('mongoose');
 const { send } = require('process');
 //for lower cases it turns any string into lower case in alphabet only
 const _ = require('lodash');
@@ -25,8 +26,22 @@ const viewpath=path.join(__dirname,"./view");
 //store for new post
  let posts=[];
 
+ mongoose.connect("mongodb+srv://Niroj:Thapa123@cluster0.fvkah.mongodb.net/blogs");
+
+ const fileSchema = {
+     title:String,
+     content:String
+ }
+  
+ const blogList=mongoose.model('blog',fileSchema);
+
  app.get('/',function(req,res){// '/' this is the link 
-   
+     
+    blogList.find({},function(err,founditem){
+        res.render('home',{items:founditem});
+    })
+
+    /*
     res.render('home',{
         content:home,
         title:"Homepage",
@@ -73,21 +88,42 @@ app.get('/contact',function(req,res){
         res.render('compose');
       })
 
+     app.get('/post', function(req,res){
+      blogList.findById({_id:idval}, function(err,founditem){
+          res.render('post',{pitems:founditem});
+      })
+    })
+
+      let idval='';
+      let nextpost='';
+    app.post('/main',function(req,res){
+        idval=req.body.cbox;
+        nextpost=req.body.post;
+        console.log(idval);
+        console.log(nextpost);
+    })
+
+  
+
    app.post('/compose',function(req,res){
+       const posttitle = req.body.blogTitle;
+       const pcontent=req.body.blog;
+       const btnval=req.body.button;
      //  const tm=req.body.blogTitle;
        // console.log(tm);
         //let us create js object
-     const post={  
-         title:req.body.blogTitle,
-         content:req.body.blog
-     };
-     //push js whole objects in an array
-    posts.push(post);
-    res.redirect('/');
+     const post=new blogList({  
+         title:posttitle,
+         content:pcontent
+     });
+     if(btnval==='ok'){
+        post.save();
+        res.redirect('/');
+        }
    });
    //for new  compose
-   const action='/';
-   app.post(action,function(req, res){
+ //  const action='/';
+   app.post(action='/',function(req, res){
        //console.log(req.body.new);
        //console.log(req.body.del);
       const bv=req.body.new;
@@ -99,15 +135,24 @@ app.get('/contact',function(req,res){
        //this is for pop the posts 
        else if(dv==='delreq')
        {
-           posts.pop();
-           res.redirect('/');
+        blogList.deleteOne({_id:idval},function(err){
+            if(!err){
+                console.log("deleted selected item");
+                res.redirect('/');
+            }
+        })
+       }
+       else if(nextpost==='next')
+       {
+           res.redirect('/post');
        }
    })
+   /*
 //route parameter for route below link we 
 //can get the result after content
 app.get('/posts/:posttitle',function(req, res){
     //to test the title exist or not
-    //low dash is use for absolute alpha only lower case remove all
+    //low dash is use for specific cases
     const postTitle=_.lowerCase(req.params.posttitle);
     console.log(postTitle);
     let tt=0;
@@ -136,7 +181,8 @@ if(tt>0)
 })
 //lodash example 
 //console.log(_.lowerCase('- mero @ nam --'));//result is mero nam
-
+*/
+app.post
 
 app.listen(port, function(){
     console.log('server running on port 3000');

@@ -1,16 +1,17 @@
 <div class="body">
 <%- include('header'); -%>
 <div class="content">
-<h1 name="home"> <%= title %> </h1>
-<p name="home"><%= content %></p>
-
-  <% posts .forEach(function(post){ %>
-        <h1 name="home"> <%= post.title %></h1> </h1>
-        <p name="home"><%= post.content.toString(0,60)+"..."%>
-            <a href="/posts/+<%= post.title %>">read more</a>
+<h1 name="home"> <%= items.title %> </h1>
+<p name="home"><%= items.content %></p>
+   <form action="/main" method="post">
+  <% items .forEach(function(item){ %>
+    <input type="checkbox" name="cbox" value="<%=item._id%>" onChange="this.form.submit()">
+        <h1 name="home"> <%= item.title %></h1> </h1>
+        <p name="home"><%= item.content.toString(0,60)+"..."%>
+         <a href="" name="post" value="<%=item._id%>">read more</a>
         </p>
     <%   })%>
-
+   </form>
 </div>
 <form id="nc" about='/' method="post">
     <button  class="btn btn-primary" name="new" type="submit" value="press">New Compose</button>

@@ -1,7 +1,4 @@
 # EJS
-EJS project to post blog
-which is deployed in heroku https://mero-post.herokuapp.com/
 
-here route feature also available where you can go with seperate particular page by the following way:
+this Project  is deployed in heroku and mongodb as a hosting https://mero-post.herokuapp.com/
 
-existing urs/posts/(your compose post titile name) 
